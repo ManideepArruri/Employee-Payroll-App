@@ -13,3 +13,4 @@
 # Compiled output directory
 
 bin/
+.metadata/
