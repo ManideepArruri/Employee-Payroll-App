@@ -2,7 +2,9 @@ package com.seveneleven.employeepayroll.app;
 
 import java.util.Scanner;
 
+import com.seveneleven.employeepayroll.download.DownloadToken;
 import com.seveneleven.employeepayroll.exception.ValidationException;
+import com.seveneleven.employeepayroll.file.FileService;
 import com.seveneleven.employeepayroll.model.Employee;
 import com.seveneleven.employeepayroll.model.UserAccount;
 import com.seveneleven.employeepayroll.payroll.PayrollService;
@@ -27,7 +29,8 @@ public class EmployeePayroll {
             System.out.println("1. Register Employee");
             System.out.println("2. Login");
             System.out.println("3 Generate Payslip");
-            System.out.println("4. Exit");
+            System.out.println("4 Print / Download Payslip");
+            System.out.println("5. Exit");
 
             System.out.print("Enter Choice: ");
 
@@ -126,8 +129,59 @@ public class EmployeePayroll {
                 System.out.println(payslip);
 
             break;
-                
             case 4:
+
+            	System.out.println("\n=== PAYSLIP DOWNLOAD ===");
+
+            	Payslip original = new Payslip(
+            	        "EMP-1010",
+            	        "John David",
+            	        "January 2026",
+            	        48500
+            	);
+
+            	System.out.println("\nOriginal Payslip:");
+            	System.out.println(original);
+
+            	try{
+
+            	    Payslip cloned = (Payslip) original.clone();
+
+            	    if(original.equals(cloned)){
+            	        System.out.println("Verified: Download copy is equal to original.");
+            	    }
+
+            	    System.out.println("Original hashcode : "+original.hashCode());
+            	    System.out.println("Cloned hashcode : "+cloned.hashCode());
+
+            	    DownloadToken token = new DownloadToken();
+
+            	    if(token.isExpired()){
+            	        System.out.println("Download token expired.");
+            	        break;
+            	    }
+
+            	    FileService fs = new FileService();
+
+            	    String txt = fs.savePayslipAsText(cloned);
+            	    String pdf = fs.savePayslipAsPdf(cloned);
+
+            	    System.out.println("\nPayslip Download Successful");
+            	    System.out.println("Saved as text file : "+txt);
+            	    System.out.println("Saved as PDF file : "+pdf);
+
+            	    System.out.println("\n--- Printed Payslip ---");
+            	    System.out.println(cloned);
+
+            	}
+            	catch(Exception e){
+
+            	    System.out.println("Error during payslip download.");
+
+            	}
+
+            	break;
+            case 5:
 
                 System.out.println("Exiting System...");
                 sc.close();
