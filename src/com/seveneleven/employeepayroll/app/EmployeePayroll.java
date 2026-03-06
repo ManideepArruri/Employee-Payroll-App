@@ -5,6 +5,9 @@ import java.util.Scanner;
 import com.seveneleven.employeepayroll.exception.ValidationException;
 import com.seveneleven.employeepayroll.model.Employee;
 import com.seveneleven.employeepayroll.model.UserAccount;
+import com.seveneleven.employeepayroll.payroll.PayrollService;
+import com.seveneleven.employeepayroll.payroll.Payslip;
+import com.seveneleven.employeepayroll.persistence.DataStore;
 import com.seveneleven.employeepayroll.service.AuthenticationService;
 import com.seveneleven.employeepayroll.service.EmployeeService;
 import com.seveneleven.employeepayroll.session.Session;
@@ -23,7 +26,8 @@ public class EmployeePayroll {
             System.out.println("\n===== EMPLOYEE PAYROLL SYSTEM =====");
             System.out.println("1. Register Employee");
             System.out.println("2. Login");
-            System.out.println("3. Exit");
+            System.out.println("3 Generate Payslip");
+            System.out.println("4. Exit");
 
             System.out.print("Enter Choice: ");
 
@@ -86,8 +90,44 @@ public class EmployeePayroll {
                 }
 
                 break;
-
+         
             case 3:
+
+                System.out.print("Enter Username: ");
+                String user = sc.nextLine();
+
+                Employee emp = DataStore.employees.get(user);
+
+                if(emp == null){
+                    System.out.println("Employee not found.");
+                    break;
+                }
+
+                System.out.print("Month: ");
+                String month = sc.nextLine();
+
+                System.out.print("Basic Salary: ");
+                double basic = sc.nextDouble();
+
+                System.out.print("HRA: ");
+                double hra = sc.nextDouble();
+
+                System.out.print("DA: ");
+                double da = sc.nextDouble();
+
+                System.out.print("Allowances: ");
+                double allowances = sc.nextDouble();
+                sc.nextLine();
+
+                PayrollService payroll = new PayrollService();
+
+                Payslip payslip = payroll.generatePayslip(emp,month,basic,hra,da,allowances);
+
+                System.out.println(payslip);
+
+            break;
+                
+            case 4:
 
                 System.out.println("Exiting System...");
                 sc.close();

@@ -20,6 +20,14 @@ public class Employee {
         this.account = account;
     }
     
+    public String getEmpId(){
+        return empId;
+    }
+
+    public String getName(){
+        return name;
+    }
+    
     public UserAccount getAccount(){
         return account;
     }

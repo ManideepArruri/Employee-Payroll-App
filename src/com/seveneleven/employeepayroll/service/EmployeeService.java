@@ -13,6 +13,7 @@ public class EmployeeService {
         RegularEmployee user = new RegularEmployee(username,password);
 
         DataStore.users.put(username,user);
+        DataStore.employees.put(username,employee);
 
         System.out.println("Employee registered successfully!");
 
