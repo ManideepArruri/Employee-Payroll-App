@@ -67,9 +67,10 @@ public class EmployeePayroll {
                     System.out.print("Password: ");
                     String password = sc.nextLine();
 
-                    Validator.validateEmpId(empId);
+                    Validator.validateEmployeeId(empId);
                     Validator.validateEmail(email);
                     Validator.validatePhone(phone);
+                    Validator.validatePassword(password);
 
                     UserAccount account = new UserAccount(username,password);
 
