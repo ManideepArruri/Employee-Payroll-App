@@ -1,8 +1,8 @@
-package com.seveneleven.employeeregistration.validation;
+package com.seveneleven.employeepayroll.validation;
 
 import java.util.regex.*;
 
-import com.seveneleven.employeeregistration.exception.ValidationException;
+import com.seveneleven.employeepayroll.exception.ValidationException;
 
 public class Validator {
 

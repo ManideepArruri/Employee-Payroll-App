@@ -1,4 +1,4 @@
-package com.seveneleven.employeeregistration.exception;
+package com.seveneleven.employeepayroll.exception;
 
 public class ValidationException extends Exception {
     public ValidationException(String message) {

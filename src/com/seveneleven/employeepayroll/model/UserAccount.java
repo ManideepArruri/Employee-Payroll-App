@@ -1,5 +1,4 @@
-package com.seveneleven.employeeregistration.model;
-
+package com.seveneleven.employeepayroll.model;
 
 public class UserAccount {
 
@@ -8,11 +7,7 @@ public class UserAccount {
 
 	public UserAccount(String username, String password) {
 		this.username = username;
-		this.password = encrypt(password);
-	}
-
-	private String encrypt(String password) {
-		return Integer.toHexString(password.hashCode());
+		this.password = password;
 	}
 
 	public String getUsername() {

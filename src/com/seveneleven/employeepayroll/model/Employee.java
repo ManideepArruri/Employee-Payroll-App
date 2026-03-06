@@ -1,4 +1,4 @@
-package com.seveneleven.employeeregistration.model;
+package com.seveneleven.employeepayroll.model;
 
 import java.io.*;
 
@@ -18,6 +18,10 @@ public class Employee {
         this.email = email;
         this.phone = phone;
         this.account = account;
+    }
+    
+    public UserAccount getAccount(){
+        return account;
     }
 
     @Override
