@@ -1,5 +1,6 @@
 package com.seveneleven.employeepayroll.app;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.seveneleven.employeepayroll.download.DownloadToken;
@@ -14,6 +15,10 @@ import com.seveneleven.employeepayroll.service.AuthenticationService;
 import com.seveneleven.employeepayroll.service.EmployeeService;
 import com.seveneleven.employeepayroll.session.Session;
 import com.seveneleven.employeepayroll.validation.Validator;
+import com.seveneleven.employeepayroll.dashboard.Dashboard;
+import com.seveneleven.employeepayroll.dashboard.DashboardFactory;
+import com.seveneleven.employeepayroll.dashboard.DashboardEmployee;
+import com.seveneleven.employeepayroll.dashboard.DashboardPayslip;
 
 public class EmployeePayroll {
 	
@@ -28,9 +33,10 @@ public class EmployeePayroll {
             System.out.println("\n===== EMPLOYEE PAYROLL SYSTEM =====");
             System.out.println("1. Register Employee");
             System.out.println("2. Login");
-            System.out.println("3 Generate Payslip");
-            System.out.println("4 Print / Download Payslip");
-            System.out.println("5. Exit");
+            System.out.println("3. Generate Payslip");
+            System.out.println("4. Print / Download Payslip");
+            System.out.println("5. View Dashboard");
+            System.out.println("6. Exit");
 
             System.out.print("Enter Choice: ");
 
@@ -182,6 +188,40 @@ public class EmployeePayroll {
 
             	break;
             case 5:
+
+            	System.out.println("\n=== DASHBOARD DISPLAY ===");
+
+
+            	System.out.print("Enter Employee ID: ");
+            	String id = sc.nextLine();
+
+            	System.out.print("Enter Employee Name: ");
+            	String name = sc.nextLine();
+
+            	System.out.print("Enter Role (EMPLOYEE/MANAGER): ");
+            	String role = sc.nextLine();
+
+            	DashboardEmployee emp1 = new DashboardEmployee(id,name);
+
+            	ArrayList<DashboardPayslip> payslips = new ArrayList<>();
+
+            	payslips.add(new DashboardPayslip("Jan",30000));
+            	payslips.add(new DashboardPayslip("Feb",32000));
+            	payslips.add(new DashboardPayslip("Mar",35000));
+            	payslips.add(new DashboardPayslip("Apr",33000));
+            	payslips.add(new DashboardPayslip("May",34000));
+
+            	Dashboard dashboard = DashboardFactory.getDashboard(role);
+
+            	if(dashboard != null){
+            	    dashboard.display(payslips,emp1);
+            	}
+            	else{
+            	    System.out.println("Invalid role.");
+            	}
+
+            	break;
+            case 6:
 
                 System.out.println("Exiting System...");
                 sc.close();
